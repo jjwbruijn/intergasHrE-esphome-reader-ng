@@ -1,10 +1,30 @@
 # intergasHrE-esphome-reader
 
-Dit is een ESPHOME based custom component om een Intergas Hre uit te lezen.
-De code is oorspronkelijk van Little-Chef, https://github.com/little-chef/intergas-xtreme-monitor.
-Deze is aangepast om de data van een HREco uit te lezen.
-Code is nog work in progress.
+This is an intergas HRE gateway for ESPHome, which allows you to see debug data from the internal debug interface on the main PCB. It's based on this project:
 
-Upload de intergas.h file naar de esphome root directory , en pas de yaml aan naar eigen wens. Let op: ik gebruik een static ip , verwijder deze of pas deze aan naar een eigen ip-adress.
+https://github.com/So871/intergasHrE-esphome-reader/
 
-![image](https://github.com/So871/intergasHrE-esphome-reader/assets/45521085/4411ab48-1ed7-4d76-a8e9-f19f4c6b4f92)
+This version works on more recent versions of ESPHome Device Builder
+
+Add the following to your esphome config:
+
+```
+external_components:
+  - source: github://jjwbruijn/intergasHrE-esphome-reader-ng
+
+uart:
+  - id: uart_2
+    rx_pin: GPIO33
+    tx_pin: GPIO32
+    baud_rate: 9600
+
+sensor:
+  - platform: intergas
+    uart_id: uart_2
+```
+
+Be sure to change the GPIO's to the relevant pins on your board. 
+
+<img width="759" height="1177" alt="{EFCD398E-C68B-49F8-88B3-C6FFACF39112}" src="https://github.com/user-attachments/assets/32acbcef-8f0c-4ee8-81d7-aa1ff6f64585" />
+<img width="491" height="1813" alt="{1B011FB8-F7FE-425A-BAAD-030C955ED96F}" src="https://github.com/user-attachments/assets/9b9cc3f1-6f1d-44fa-9669-fdf435b9953c" />
+
