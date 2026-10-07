@@ -13,11 +13,9 @@ namespace intergas {
 #define DEFINE_SENSOR(name)           \
     sensor::Sensor *name##_{nullptr}; \
     void set_##name(sensor::Sensor *s) { name##_ = s; }
-
 #define DEFINE_BSENSOR(name)                       \
     binary_sensor::BinarySensor *name##_{nullptr}; \
     void set_##name(binary_sensor::BinarySensor *s) { name##_ = s; }
-
 #define DEFINE_TSENSOR(name)                   \
     text_sensor::TextSensor *name##_{nullptr}; \
     void set_##name(text_sensor::TextSensor *s) { name##_ = s; }
@@ -25,7 +23,6 @@ namespace intergas {
 class Intergas : public PollingComponent, public uart::UARTDevice {
    public:
     float get_setup_priority() const override;
-
     void setup() override;
     void update() override;
     void dump_config() override;
@@ -33,7 +30,6 @@ class Intergas : public PollingComponent, public uart::UARTDevice {
     void readData(uint8_t *buffer, uint8_t len);
     bool processData(uint8_t type, uint8_t len, uint8_t *buffer);
 
-    // runtime stats
     DEFINE_SENSOR(line_power_connected_count)
     DEFINE_SENSOR(line_power_connected_hours)
     DEFINE_SENSOR(ch_function_hours)
@@ -46,7 +42,6 @@ class Intergas : public PollingComponent, public uart::UARTDevice {
     DEFINE_SENSOR(gas_meter_dhw)
     DEFINE_SENSOR(water_meter)
     DEFINE_SENSOR(burner_starts_dhw_count)
-
     DEFINE_SENSOR(temperature_t1)
     DEFINE_SENSOR(temperature_t2)
     DEFINE_SENSOR(temperature_hot_water)
@@ -60,7 +55,6 @@ class Intergas : public PollingComponent, public uart::UARTDevice {
     DEFINE_TSENSOR(heater_fault_code)
     DEFINE_TSENSOR(heater_last_fault_code)
     DEFINE_TSENSOR(heater_dwk)
-
     DEFINE_BSENSOR(heater_gp_switch)
     DEFINE_BSENSOR(heater_tap_switch)
     DEFINE_BSENSOR(heater_roomtherm)
@@ -75,7 +69,6 @@ class Intergas : public PollingComponent, public uart::UARTDevice {
     DEFINE_BSENSOR(heater_has_low_water_pressure)
     DEFINE_BSENSOR(heater_burner_block)
     DEFINE_BSENSOR(heater_gradient_flag)
-
    protected:
     bool intergas_write_command(const uint8_t *command, uint8_t len);
 };
